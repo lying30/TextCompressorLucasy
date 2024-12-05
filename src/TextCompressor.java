@@ -21,9 +21,10 @@
  *  = 43.54% compression ratio!
  ******************************************************************************/
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.*;
+
 
 /**
  *  The {@code TextCompressor} class provides static methods for compressing
@@ -34,17 +35,19 @@ import java.util.Map;
 public class TextCompressor {
 
     private static Map<String, Integer> wordToCode = new HashMap<>();
-    private static Map<String, Integer> codeToWord = new HashMap<>();
+    private static Map<Integer, String> codeToWord = new HashMap<>();
 
-    private static void commonWords() {
-        String[] words = new String[1000];
-        String s = BinaryStdIn.readString();
-        words[0] = s.substring(0,0);
-        for (int i = 1; i < 1000; i++) {
-            if (s.charAt(i) == '\n'){
-            }
+    private static void commonWords(String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        String line;
+        int code = 0;
+
+        while ((line = reader.readLine()) != null){
+            wordToCode.put(line, code);
+            codeToWord.put(code, line);
+            code++;
         }
-
+        reader.close();
     }
 
     private static void compress() {
@@ -52,16 +55,7 @@ public class TextCompressor {
         String s = BinaryStdIn.readString();
         int length = s.length();
 
-        for (int i = 0; i < length; i++) {
-            String word = s.substring(i);
-            for (int j = 0; j< 1000; j++){
-                if (word.equals(String[j])){
-                    BinaryStdOut.write(j, 10);
 
-                }
-
-            }
-        }
 
         // read in the string
         // utilize 10 bit codes that represent 1000 most common words in english dictionary
@@ -77,12 +71,25 @@ public class TextCompressor {
         BinaryStdOut.close();
     }
 
+    private static void compressWordOrSwitch(String word) {
+
+    }
+
 
 
     private static void expand() {
 
-        // TODO: Complete the expand() method
+        while (!BinaryStdIn.isEmpty()) {
+            boolean isCommonWord = BinaryStdIn.readBoolean();
 
+            if (isCommonWord) {
+                int code = BinaryStdIn. readInt(10);
+                BinaryStdOut.write(codeToWord.get(code));
+            } else {
+                char c = BinaryStdIn.readChar(8);
+                BinaryStdOut.write(c);
+            }
+        }
         BinaryStdOut.close();
     }
 
