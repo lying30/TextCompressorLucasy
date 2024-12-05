@@ -21,20 +21,63 @@
  *  = 43.54% compression ratio!
  ******************************************************************************/
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *  The {@code TextCompressor} class provides static methods for compressing
  *  and expanding natural language through textfile input.
  *
- *  @author Zach Blick, YOUR NAME HERE
+ *  @author Zach Blick, Lucas Ying
  */
 public class TextCompressor {
 
+    private static Map<String, Integer> wordToCode = new HashMap<>();
+    private static Map<String, Integer> codeToWord = new HashMap<>();
+
+    private static void commonWords() {
+        String[] words = new String[1000];
+        String s = BinaryStdIn.readString();
+        words[0] = s.substring(0,0);
+        for (int i = 1; i < 1000; i++) {
+            if (s.charAt(i) == '\n'){
+            }
+        }
+
+    }
+
     private static void compress() {
 
-        // TODO: Complete the compress() method
+        String s = BinaryStdIn.readString();
+        int length = s.length();
+
+        for (int i = 0; i < length; i++) {
+            String word = s.substring(i);
+            for (int j = 0; j< 1000; j++){
+                if (word.equals(String[j])){
+                    BinaryStdOut.write(j, 10);
+
+                }
+
+            }
+        }
+
+        // read in the string
+        // utilize 10 bit codes that represent 1000 most common words in english dictionary
+        // to pull from when seen in the text. Map these to 10 bit codes
+
+        // when seen in the read file write out the 10 bit code for that word (include the space after the coded word)
+        // if the word is not seen switch to writing out 8 bit chars through the ascii value of that char
+        // i also need to account for metadata to let the expanded file understand when to expand it into a word or a individual link of chars
+
+
+
 
         BinaryStdOut.close();
     }
+
+
 
     private static void expand() {
 
