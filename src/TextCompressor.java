@@ -21,8 +21,6 @@
  *  = 43.54% compression ratio!
  ******************************************************************************/
 
-import java.util.HashMap;
-import java.util.Map;
 import java.io.*;
 
 
@@ -34,37 +32,29 @@ import java.io.*;
  */
 public class TextCompressor {
 
-    private static Map<String, Integer> wordToCode = new HashMap<>();
-    private static Map<Integer, String> codeToWord = new HashMap<>();
-
-    private static void commonWords(String fileName) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        String line;
-        int code = 0;
-
-        while ((line = reader.readLine()) != null){
-            wordToCode.put(line, code);
-            codeToWord.put(code, line);
-            code++;
-        }
-        reader.close();
-    }
 
     private static void compress() {
 
         String s = BinaryStdIn.readString();
         int length = s.length();
+        int R = 256;
+        int L = 4096;
+        int W = 12;
+
+        TST tst = new TST();
+
+        for (int i = 0; i < R; i++) {
+            tst.insert("" + (char) i, i);
+        }
+
+        int code = R + 1;
+
+        String prefix = "";
 
 
 
-        // read in the string
-        // utilize 10 bit codes that represent 1000 most common words in english dictionary
-        // to pull from when seen in the text. Map these to 10 bit codes
 
-        // when seen in the read file write out the 10 bit code for that word (include the space after the coded word)
-        // if the word is not seen switch to writing out 8 bit chars through the ascii value of that char
-        // i also need to account for metadata to let the expanded file understand when to expand it into a word or a individual link of chars
-
+        // find the longest string s in the symbol table that is a prefix of the unscanned input
 
 
 
