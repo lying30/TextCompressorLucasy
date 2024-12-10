@@ -21,6 +21,8 @@
  *  = 43.54% compression ratio!
  ******************************************************************************/
 
+import jdk.incubator.vector.VectorOperators;
+
 import java.io.*;
 
 
@@ -48,38 +50,58 @@ public class TextCompressor {
         }
 
         int code = R + 1;
+        int index = 0;
 
-        String prefix = "";
+        while (index < length) {
+            // Get the longest coded word that matches text at index
+            String prefix = tst.getLongestPrefix(s);
 
+            // Write the prefix out
+            BinaryStdOut.write(tst.lookup(prefix), W);
 
+            // Look ahead to the next character
+            int prefixLength = prefix.length();
+            if (index + prefixLength < length) {
+                char nextChar = s.charAt(prefixLength+index);
 
+                // Append that character to the prefix
+                String newPrefix = prefix + nextChar;
 
-        // find the longest string s in the symbol table that is a prefix of the unscanned input
-
-
-
+                // Associate that new prefix with the next available code (if available)
+                if (code < L) {
+                    tst.insert(newPrefix, code++);
+                }
+            }
+            index += prefixLength;
+        }
+        BinaryStdOut.write(R,W);
         BinaryStdOut.close();
-    }
-
-    private static void compressWordOrSwitch(String word) {
-
     }
 
 
 
     private static void expand() {
+        int R = 256;
+        int L = 4096;
+        int W = 12;
 
-        while (!BinaryStdIn.isEmpty()) {
-            boolean isCommonWord = BinaryStdIn.readBoolean();
+        String[] st = new String[L];
 
-            if (isCommonWord) {
-                int code = BinaryStdIn. readInt(10);
-                BinaryStdOut.write(codeToWord.get(code));
-            } else {
-                char c = BinaryStdIn.readChar(8);
-                BinaryStdOut.write(c);
-            }
+        for (int i = 0; i < R; i++) {
+            st[i] = "" + (char) i;
         }
+
+        int prevCode = BinaryStdIn.readInt(W);
+        if (prevCode == R) {
+            // EOF
+            return;
+        }
+
+        String prevString = st[prevCode];
+
+        BinaryStdOut.write(prevString);
+
+
         BinaryStdOut.close();
     }
 

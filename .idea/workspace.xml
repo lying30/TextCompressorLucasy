@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c0fc687-5e81-4f2e-86c0-a00732202ab3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/WORK_LOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/WORK_LOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TextCompressor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TextCompressor.java" afterDir="false" />
-    </list>
+    <list default="true" id="4c0fc687-5e81-4f2e-86c0-a00732202ab3" name="Changes" comment="update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,18 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "lying30"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;lying30&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ztblick/TextCompressorStudentCode",
-    "accountId": "5880c6ab-c181-43c2-9685-6ad2739fcd6b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ztblick/TextCompressorStudentCode&quot;,
+    &quot;accountId&quot;: &quot;5880c6ab-c181-43c2-9685-6ad2739fcd6b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -53,6 +50,37 @@
       <option name="presentableId" value="Default" />
       <updated>1723577240931</updated>
     </task>
+    <task id="LOCAL-00001" summary="forgot to commit after class so here it is">
+      <option name="closed" value="true" />
+      <created>1733368861327</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733368861327</updated>
+    </task>
+    <task id="LOCAL-00002" summary="v1">
+      <option name="closed" value="true" />
+      <created>1733373667666</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733373667666</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update">
+      <option name="closed" value="true" />
+      <created>1733525962216</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733525962216</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="forgot to commit after class so here it is" />
+    <MESSAGE value="v1" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>
