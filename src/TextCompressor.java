@@ -21,8 +21,6 @@
  *  = 43.54% compression ratio!
  ******************************************************************************/
 
-import jdk.incubator.vector.VectorOperators;
-
 import java.io.*;
 
 
@@ -39,41 +37,48 @@ public class TextCompressor {
 
         String s = BinaryStdIn.readString();
         int length = s.length();
+        // Number of ASCII characters
         int R = 256;
+        // Maximum number of codewords for 12 bit codes
         int L = 4096;
+        // Codeword size of 12 bits
         int W = 12;
 
         TST tst = new TST();
 
+        // Initialize TST with the ASCII characters
         for (int i = 0; i < R; i++) {
             tst.insert("" + (char) i, i);
         }
 
+        // Start assigning codes after the ASCII codes
         int code = R + 1;
         int index = 0;
 
         while (index < length) {
-            // Get the longest coded word that matches text at index
-            String prefix = tst.getLongestPrefix(s);
+            // Get the longest prefix in the TST starting at index
+            String prefix = tst.getLongestPrefix(s.substring(index));
 
-            // Write the prefix out
+            // Write the code for the prefix to the output
             BinaryStdOut.write(tst.lookup(prefix), W);
 
-            // Look ahead to the next character
+            // Look ahead to the next character after the prefix
             int prefixLength = prefix.length();
             if (index + prefixLength < length) {
                 char nextChar = s.charAt(prefixLength+index);
 
-                // Append that character to the prefix
+                // Append that character to the prefix to create the new prefix
                 String newPrefix = prefix + nextChar;
 
-                // Associate that new prefix with the next available code (if available)
+                // Associate that new prefix with the next available code (if available) and add it in the TST
                 if (code < L) {
                     tst.insert(newPrefix, code++);
                 }
             }
+            // Advance the index by the length of the prefix
             index += prefixLength;
         }
+        // Write end of file marker to indicate the end of the compressed data
         BinaryStdOut.write(R,W);
         BinaryStdOut.close();
     }
@@ -81,26 +86,67 @@ public class TextCompressor {
 
 
     private static void expand() {
+        // Number of ASCII characters
         int R = 256;
+        // Maximum number of codewords for 12 bit codes
         int L = 4096;
+        // Codeword size of 12 bits
         int W = 12;
 
+        // Array for the codes
         String[] st = new String[L];
 
+        // Initialize the table with the ASCII characters
         for (int i = 0; i < R; i++) {
             st[i] = "" + (char) i;
         }
 
+        int code = R + 1;
+
+        // Read the first codeword
         int prevCode = BinaryStdIn.readInt(W);
         if (prevCode == R) {
             // EOF
             return;
         }
-
+        // Retrieve corresponding string
         String prevString = st[prevCode];
 
+        // Write the first string to the output
         BinaryStdOut.write(prevString);
 
+        while(true) {
+            // Read the next codeword
+            int currCode = BinaryStdIn.readInt(W);
+            if (currCode == R) {
+                // EOF
+                break;
+            }
+
+            String currString;
+            // Retrieve the string for the current codeword
+            if (currCode < code) {
+                currString = st[currCode];
+            }
+            else if (currCode == code) {
+                // Handle lookahead case
+                currString = prevString + prevString.charAt(0);
+            }
+            else {
+                // Throw exception if the code does not exist within the array
+                throw new IllegalArgumentException("Invalid compressed codeword");
+            }
+            // Write the current string to the output
+            BinaryStdOut.write(currString);
+
+            // Add the new sequence to the array of codes
+            if (code < L) {
+                st[code++] = prevString + currString.charAt(0);
+            }
+
+            // Update prevString for the next iteration
+            prevString = currString;
+        }
 
         BinaryStdOut.close();
     }
